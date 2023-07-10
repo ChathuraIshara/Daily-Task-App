@@ -13,20 +13,33 @@
         <div class="row">
             <div class="col-md-12">
                 <br>
-                <input type="text" class="form-control" name="task" placeholder="Enter your task"><br>
-                <input type="button" class="btn btn-primary" value="Save">
-                <input type="button" class="btn btn-warning" value="Clear"><br><br>
+                @foreach($errors->all() as $error)
+                <div class="alert alert-danger" role="alert">
+                    {{$error}}
+
+                </div>
+                @endforeach
+                <form method="POST" action="/savetask">
+                    {{csrf_field()}}
+                  <input type="text" class="form-control" name="task" placeholder="Enter your task"><br>
+                  <input type="submit" class="btn btn-primary" value="Save">
+                  <input type="button" class="btn btn-warning" value="Clear"><br><br>
+
+                </form>
+              
                 <table class="table table-dark">
                     <tr>
                     <th>ID</th>
                     <th>Task</th>
                     <th>Completed</th>
                     </tr>
+                    @foreach($tasks as $task)
                     <tr>
-                        <td>1</td>
-                        <td>I have to learn laravel</td>
-                        <td>Not yet</td>
+                        <td>{{$task->id}}</td>
+                        <td>{{$task->task}}</td>
+                        <td>{{$task->isCompleted}}</td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

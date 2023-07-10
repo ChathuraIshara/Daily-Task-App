@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\taskController;
 use Illuminate\Support\Facades\Route;
+use App\Models\task;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,11 @@ Route::get('/', function () {
 });
 
 Route::get('/task',function(){
-    return view("task");
+    $data=task::all();
+    return view("task")->with("tasks",$data);
 });
 
 
 Route::get('/aboutus',[FrontendController::class,'indexAboutUs']);
 Route::get('/contactus',[FrontendController::class,'indexContact']);
+Route::post('/savetask',[taskController::class,'store']);
