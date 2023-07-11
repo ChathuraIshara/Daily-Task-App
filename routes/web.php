@@ -20,12 +20,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/task',function(){
-    $data=task::all();
-    return view("task")->with("tasks",$data);
-});
-
+// Route::get('/task',function(){
+//     $data=task::all();
+//     return view("task")->with("tasks",$data);
+// });
 
 Route::get('/aboutus',[FrontendController::class,'indexAboutUs']);
 Route::get('/contactus',[FrontendController::class,'indexContact']);
-Route::post('/savetask',[taskController::class,'store']);
+Route::post('/insertdata',[taskController::class,'save']);
+Route::get('/mark/{id}',[taskController::class,'markCompleted']);
+
+Route::get('/task',[taskController::class,'show'])->name('task.show');
+Route::get('/marknot/{id}',[taskController::class,'markNotCompleted']);
+Route::get('/deletetask/{id}',[taskController::class,'deleteTask']);
+Route::get('/updatetask/{id}',[taskController::class,'updateTask']);
+Route::post('/updatetaskdb',[taskController::class,'updateTaskDb']);
+Route::get('/updatecancel',[taskController::class,'cancelUpdate']);
